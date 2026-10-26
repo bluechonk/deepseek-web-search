@@ -5,10 +5,10 @@
 import { ApiError, ConfigError, DEFAULT_VERSION, doctor, fetchPage, resolveConfig, search } from "./api.mjs";
 import { isFormat, render, renderError } from "./output.mjs";
 
-const HELP = `deepseek-web-search — DeepSeek official web search & page fetch CLI
+const HELP = `dws — DeepSeek official web search & page fetch CLI
 
 Usage:
-  deepseek-web-search <command> [options]
+  dws <command> [options]
 
 Commands:
   search <query>        Search the web (supports site:, -site:, -term, "phrase", lang:, after:/before:)
@@ -31,10 +31,10 @@ Environment:
   DEEPSEEK_BASE_URL     Optional base URL override
 
 Examples:
-  deepseek-web-search search "DeepSeek V4 发布" --count 5
-  deepseek-web-search search "site:github.com deepseek" --need-content
-  deepseek-web-search fetch https://api-docs.deepseek.com/zh-cn/guides/search
-  deepseek-web-search search "AI 新闻" --format markdown
+  dws search "DeepSeek V4 发布" --count 5
+  dws search "site:github.com deepseek" --need-content
+  dws fetch https://api-docs.deepseek.com/zh-cn/guides/search
+  dws search "AI 新闻" --format markdown
 `;
 
 function parseArgs(argv) {

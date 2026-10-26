@@ -20,7 +20,7 @@ description: Fetch a single web page with DeepSeek's official Fetch API and retu
 1. PATH 中是否已全局安装：
 
    ```bash
-   command -v deepseek-web-search
+   command -v dws
    ```
 
 2. 未命中则用本技能目录推导插件根。本文件位于 `<插件根>/skills/deepseek-web-fetch/SKILL.md`，因此：

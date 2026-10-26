@@ -2,17 +2,29 @@
 
 DeepSeek 官方联网搜索与网页抓取的命令行工具。零依赖，只用 Node 内置模块。
 
+命令名是 `dws`，短，好敲。
+
 ## 安装
 
 ```bash
 npm i -g deepseek-web-search
 ```
 
-或不安装直接用：
+装完直接用 `dws`：
 
 ```bash
-npx deepseek-web-search --help
+dws search "DeepSeek V4 发布" --count 5
+dws fetch https://api-docs.deepseek.com/zh-cn/guides/search
+dws doctor
 ```
+
+也可以不安装，用 npx 直接跑包名：
+
+```bash
+npx deepseek-web-search search "AI 新闻" --format markdown
+```
+
+注意：npm 上的 `dws` 包是另一个无关项目，`npx dws` 不会运行本工具。
 
 ## 配置
 
@@ -24,18 +36,18 @@ npx deepseek-web-search --help
 ## 命令
 
 ```bash
-deepseek-web-search search <query> [options]
-deepseek-web-search fetch <url> [options]
-deepseek-web-search doctor
+dws search <query> [options]
+dws fetch <url> [options]
+dws doctor
 ```
 
 ### search
 
 ```bash
-deepseek-web-search search "DeepSeek V4 发布" --count 5
-deepseek-web-search search "site:github.com deepseek" --need-content
-deepseek-web-search search "AI 新闻" --format markdown
-deepseek-web-search search "deepseek after:2026-10-01" --count 20
+dws search "DeepSeek V4 发布" --count 5
+dws search "site:github.com deepseek" --need-content
+dws search "AI 新闻" --format markdown
+dws search "deepseek after:2026-10-01" --count 20
 ```
 
 | 选项 | 说明 |
@@ -51,8 +63,8 @@ query 支持搜索语法：`site:`、`-site:`、`-关键词`、`"精确短语"`�
 ### fetch
 
 ```bash
-deepseek-web-search fetch https://api-docs.deepseek.com/zh-cn/guides/search
-deepseek-web-search fetch https://example.com/article --format json
+dws fetch https://api-docs.deepseek.com/zh-cn/guides/search
+dws fetch https://example.com/article --format json
 ```
 
 | 选项 | 说明 |
@@ -62,7 +74,7 @@ deepseek-web-search fetch https://example.com/article --format json
 ### doctor
 
 ```bash
-deepseek-web-search doctor
+dws doctor
 ```
 
 用一次最小 Search 探测 Key 与连通性。

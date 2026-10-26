@@ -40,12 +40,12 @@ deepseek-web-search/
 ```bash
 npm i -g deepseek-web-search
 
-deepseek-web-search search "DeepSeek V4 发布" --count 5
-deepseek-web-search fetch https://api-docs.deepseek.com/zh-cn/guides/search
-deepseek-web-search doctor
+dws search "DeepSeek V4 发布" --count 5
+dws fetch https://api-docs.deepseek.com/zh-cn/guides/search
+dws doctor
 ```
 
-也可以不安装直接用：
+命令名是 `dws`。npm 上的 `dws` 包是另一个无关项目，`npx dws` 不会运行本工具；不安装时用包名：
 
 ```bash
 npx deepseek-web-search search "AI 新闻" --format markdown

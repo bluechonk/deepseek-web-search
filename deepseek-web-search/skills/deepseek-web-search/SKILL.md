@@ -22,7 +22,7 @@ description: Search the web with DeepSeek's official Search API. Use when the us
 1. PATH 中是否已全局安装：
 
    ```bash
-   command -v deepseek-web-search
+   command -v dws
    ```
 
 2. 未命中则用本技能目录推导插件根。本文件位于 `<插件根>/skills/deepseek-web-search/SKILL.md`，因此：
