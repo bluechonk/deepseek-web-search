@@ -50,6 +50,7 @@ function parseArgs(argv) {
     baseUrl: undefined,
     help: false,
     version: false,
+    endOfOptions: false,
   };
 
   for (let index = 0; index < argv.length; index += 1) {
@@ -105,8 +106,17 @@ function parseArgs(argv) {
       case "--version":
         options.version = true;
         break;
+      case "--":
+        options.endOfOptions = true;
+        break;
       default:
-        if (token.startsWith("-")) throw new ConfigError(`Unknown option: ${token}`);
+        // 搜索语法允许 -site:、-关键词 这类以 - 开头的词，首个位置参数不能当成选项。
+        if (!options.endOfOptions && token.startsWith("-")) {
+          const expectsPositional = options.command === "search" || options.command === "fetch";
+          if (!expectsPositional || options.positional.length > 0) {
+            throw new ConfigError(`Unknown option: ${token}`);
+          }
+        }
         options.positional.push(token);
     }
   }
@@ -144,7 +154,7 @@ async function main() {
     options = parseArgs(process.argv.slice(2));
   } catch (error) {
     process.stderr.write(renderError(error, "text"));
-    process.stderr.write(`\nRun "deepseek-web-search --help" for usage.\n`);
+    process.stderr.write(`\nRun "dws --help" for usage.\n`);
     process.exitCode = 2;
     return;
   }
@@ -162,7 +172,7 @@ async function main() {
     validate(options);
   } catch (error) {
     process.stderr.write(renderError(error, "text"));
-    process.stderr.write(`\nRun "deepseek-web-search --help" for usage.\n`);
+    process.stderr.write(`\nRun "dws --help" for usage.\n`);
     process.exitCode = 2;
     return;
   }

@@ -2,7 +2,7 @@
 // 零依赖：只用 Node 内置的 fetch。
 
 export const DEFAULT_BASE_URL = "https://api.deepseek.com";
-export const DEFAULT_VERSION = "0.1.1";
+export const DEFAULT_VERSION = "0.1.2";
 
 export class ApiError extends Error {
   constructor(message, { status, code, type, body } = {}) {
