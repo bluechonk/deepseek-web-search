@@ -1,0 +1,56 @@
+{
+  "name": "deepseek-web-search",
+  "version": "0.1.0",
+  "description": "DeepSeek official web search and page fetch: zero-dependency CLI plus matching commands, skills and MCP servers.",
+  "description_i18n": {
+    "en": "DeepSeek official web search and page fetch: zero-dependency CLI plus matching commands, skills and MCP servers.",
+    "zh-CN": "DeepSeek 官方联网搜索与网页抓取：零依赖 CLI，并配套 command、skill 与 MCP 服务。"
+  },
+  "author": {
+    "name": "bluechonk",
+    "url": "https://github.com/bluechonk"
+  },
+  "repository": "https://github.com/bluechonk/deepseek-web-search",
+  "homepage": "https://api-docs.deepseek.com/zh-cn/guides/search",
+  "license": "MIT",
+  "keywords": [
+    "deepseek",
+    "web-search",
+    "search",
+    "fetch",
+    "mcp",
+    "rag"
+  ],
+  "skills": "./skills",
+  "commands": "./commands",
+  "mcpServers": {
+    "deepseek_web_search": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["${ZCODE_PLUGIN_ROOT}/cli/src/mcp-search.mjs"],
+      "cwd": "${ZCODE_PROJECT_DIR}",
+      "timeoutMs": 60000,
+      "env": {
+        "DEEPSEEK_BASE_URL": "${user_config.base_url}"
+      }
+    },
+    "deepseek_web_fetch": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["${ZCODE_PLUGIN_ROOT}/cli/src/mcp-fetch.mjs"],
+      "cwd": "${ZCODE_PROJECT_DIR}",
+      "timeoutMs": 60000,
+      "env": {
+        "DEEPSEEK_BASE_URL": "${user_config.base_url}"
+      }
+    }
+  },
+  "userConfig": {
+    "base_url": {
+      "type": "string",
+      "title": "API 地址",
+      "default": "",
+      "description": "可选。DeepSeek API 地址覆盖，留空使用 https://api.deepseek.com。仅在代理或测试环境填写。"
+    }
+  }
+}

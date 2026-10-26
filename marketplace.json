@@ -1,0 +1,18 @@
+{
+  "name": "dev-draft-1a33f518-f551-49c1-8f12-3575a81a29ee-a12a4028",
+  "plugins": [
+    {
+      "name": "deepseek-web-search",
+      "source": "./deepseek-web-search",
+      "version": "0.1.0",
+      "description": "DeepSeek official web search and page fetch: zero-dependency CLI plus matching commands, skills and MCP servers.",
+      "displayName": "DeepSeek 联网搜索",
+      "displayName_i18n": {
+        "zh-CN": "DeepSeek 联网搜索"
+      },
+      "description_i18n": {
+        "zh-CN": "DeepSeek 官方联网搜索与网页抓取：零依赖 CLI，配套 command、skill 与 MCP 服务。"
+      }
+    }
+  ]
+}
