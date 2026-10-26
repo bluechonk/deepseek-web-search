@@ -33,7 +33,7 @@ deepseek-web-search/
 | Command | `/deepseek_web_search <query>`、`/deepseek_web_search <url>` |
 | Skill | `deepseek-web-search`（联网搜索）、`deepseek-web-fetch`（网页抓取） |
 | MCP | `deepseek_web_search`、`deepseek_web_fetch` 两个 stdio server |
-| CLI | `deepseek-web-search search / fetch / doctor` |
+| CLI | `dws search / fetch / doctor` |
 
 ## 脱离 ZCode 使用 CLI
 

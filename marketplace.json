@@ -4,7 +4,7 @@
     {
       "name": "deepseek-web-search",
       "source": "./deepseek-web-search",
-      "version": "0.1.2",
+      "version": "0.1.3",
       "description": "DeepSeek official web search and page fetch: zero-dependency CLI plus matching commands, skills and MCP servers.",
       "displayName": "DeepSeek 联网搜索",
       "displayName_i18n": {

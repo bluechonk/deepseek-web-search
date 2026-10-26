@@ -57,6 +57,9 @@ async function callTool(kind, args) {
     if (typeof input.query !== "string" || input.query.trim() === "") {
       return toolError(`${tool.name} requires a non-empty "query" string.`);
     }
+    if (input.query.length > 128) {
+      return toolError(`${tool.name} "query" must be at most 128 characters.`);
+    }
     const count = input.count;
     if (count !== undefined && (!Number.isInteger(count) || count < 1 || count > 50)) {
       return toolError(`${tool.name} "count" must be an integer between 1 and 50.`);

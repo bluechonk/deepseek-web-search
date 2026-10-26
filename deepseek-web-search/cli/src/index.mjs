@@ -3,7 +3,7 @@
 // 零依赖，只用 Node 内置模块。
 
 import { ApiError, ConfigError, DEFAULT_VERSION, doctor, fetchPage, resolveConfig, search } from "./api.mjs";
-import { isFormat, render, renderError } from "./output.mjs";
+import { formatJson, isFormat, render, renderError } from "./output.mjs";
 
 const HELP = `dws — DeepSeek official web search & page fetch CLI
 
@@ -36,6 +36,19 @@ Examples:
   dws fetch https://api-docs.deepseek.com/zh-cn/guides/search
   dws search "AI 新闻" --format markdown
 `;
+
+// 支持 --opt=value 写法；只展开需要取值的已知选项，避免误伤搜索词。
+const VALUE_OPTIONS = new Set(["--count", "--ori-question", "--localization", "--format", "--api-key", "--base-url"]);
+
+function expandEquals(argv) {
+  const out = [];
+  for (const token of argv) {
+    const match = /^(--[a-z-]+)=(.*)$/su.exec(token);
+    if (match && VALUE_OPTIONS.has(match[1])) out.push(match[1], match[2]);
+    else out.push(token);
+  }
+  return out;
+}
 
 function parseArgs(argv) {
   const options = {
@@ -146,12 +159,17 @@ function validate(options) {
   if (options.command === "fetch" && !/^https?:\/\//u.test(options.positional[0])) {
     throw new ConfigError("fetch <url> must start with http:// or https://");
   }
+  if (options.command === "search") {
+    const query = options.positional[0];
+    if (query.trim() === "") throw new ConfigError("search <query> must not be blank.");
+    if (query.length > 128) throw new ConfigError("search <query> must be at most 128 characters.");
+  }
 }
 
 async function main() {
   let options;
   try {
-    options = parseArgs(process.argv.slice(2));
+    options = parseArgs(expandEquals(process.argv.slice(2)));
   } catch (error) {
     process.stderr.write(renderError(error, "text"));
     process.stderr.write(`\nRun "dws --help" for usage.\n`);
@@ -209,7 +227,12 @@ async function main() {
     }
 
     const data = await doctor(config);
-    process.stdout.write(render("search", data, options.format));
+    const count = Array.isArray(data?.results) ? data.results.length : 0;
+    process.stdout.write(
+      options.format === "json"
+        ? formatJson({ ok: true, baseUrl: config.baseUrl, results: count })
+        : `OK: API key valid, Search reachable (${count} result${count === 1 ? "" : "s"}).\n`,
+    );
   } catch (error) {
     process.stderr.write(renderError(error, options.format));
     process.exitCode = error instanceof ApiError && error.status === 402 ? 3 : 1;

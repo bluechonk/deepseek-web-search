@@ -21,7 +21,7 @@ function formatSearchText(data) {
   if (results.length === 0) return "No results.\n";
 
   const lines = results.map((item, index) => {
-    const score = item.rerank_score === undefined ? "-" : item.rerank_score;
+    const score = item.rerank_score ?? "-";
     const date = item.date ?? "-";
     return [
       `${index + 1}. ${item.title ?? "(untitled)"}`,
@@ -38,7 +38,7 @@ function formatSearchMarkdown(data) {
   if (results.length === 0) return "No results.\n";
 
   const lines = results.map((item, index) => {
-    const score = item.rerank_score === undefined ? "-" : item.rerank_score;
+    const score = item.rerank_score ?? "-";
     const date = item.date ?? "-";
     return [
       `${index + 1}. **[${item.title ?? "(untitled)"}](${item.url ?? "#"})**`,

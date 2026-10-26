@@ -2,7 +2,7 @@
 // 零依赖：只用 Node 内置的 fetch。
 
 export const DEFAULT_BASE_URL = "https://api.deepseek.com";
-export const DEFAULT_VERSION = "0.1.2";
+export const DEFAULT_VERSION = "0.1.3";
 
 export class ApiError extends Error {
   constructor(message, { status, code, type, body } = {}) {
@@ -29,7 +29,7 @@ function isPlaceholder(value) {
 
 // 读取运行配置：API Key 只允许来自环境变量或显式参数，不落盘。
 export function resolveConfig(overrides = {}) {
-  const apiKey = overrides.apiKey || process.env.DEEPSEEK_API_KEY || "";
+  const apiKey = (overrides.apiKey || process.env.DEEPSEEK_API_KEY || "").trim();
   const rawBaseUrl = overrides.baseUrl || process.env.DEEPSEEK_BASE_URL || "";
   const baseUrl = (isPlaceholder(rawBaseUrl) ? DEFAULT_BASE_URL : rawBaseUrl || DEFAULT_BASE_URL).replace(/\/+$/, "");
 
